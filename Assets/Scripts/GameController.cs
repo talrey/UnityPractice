@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class GameController : MonoBehaviour {
-	private int state;
+	private int state, score;
 	
-	private int score;
+	private const int testSeed = 101;
 	
 	//private GameObject player;
-	private GameObject asteroidPrefab;
+	public GameObject asteroidPrefab;
 	
 	public const int STATE_MENU = 0;
 	public const int STATE_RUNNING = 1;
@@ -18,8 +18,11 @@ public class GameController : MonoBehaviour {
 		state = 0; // main menu state
 		score = 0;
 		//player = GameObject.Find("player object name");
-		asteroidPrefab = Resources.Load("Prefabs/Asteroid") as GameObject;
-		TryToAsteroid();
+		//asteroidPrefab = Resources.Load("Prefabs/ShoutBullet_Prefab") as GameObject;
+		StartCoroutine(TryToAsteroid());
+		
+		// will replace with something 'random' like time, later.
+		Random.seed = testSeed;
 	}
 	
 	// Update is called once per frame
@@ -52,14 +55,12 @@ public class GameController : MonoBehaviour {
 		switch (state) {
 			case STATE_MENU:
 				if (GUI.Button(
-				new Rect(Screen.width/2-50,Screen.height/2,100,30),
-				"Start Game")) {
+				new Rect(Screen.width/2-50,Screen.height/2,100,30), "Start Game")) {
 					//Debug.Log("game started");
 					state = STATE_RUNNING;
 				}
 				else if (GUI.Button(
-				new Rect(Screen.width/2-50,Screen.height/2+30,100,30),
-				"Quit")) {
+				new Rect(Screen.width/2-50,Screen.height/2+30,100,30), "Quit")) {
 					Debug.Log("game quit?");
 				}
 				break;
@@ -69,14 +70,12 @@ public class GameController : MonoBehaviour {
 			case STATE_PAUSED:
 				GUI.Label(new Rect(0,0,100,30), "Score: " + score);
 				if (GUI.Button(
-				new Rect(Screen.width/2-50,Screen.height/2,100,30),
-				"Resume")) {
+				new Rect(Screen.width/2-50,Screen.height/2,100,30), "Resume")) {
 					Debug.Log("game resumed");
 					state = STATE_RUNNING;
 				}
 				else if (GUI.Button(
-				new Rect(Screen.width/2-50,Screen.height/2+30,100,30),
-				"Quit")) {
+				new Rect(Screen.width/2-50,Screen.height/2+30,100,30), "Quit")) {
 					//Debug.Log("game quit");
 					state = STATE_MENU;
 					// save score
@@ -100,37 +99,36 @@ public class GameController : MonoBehaviour {
 	// It isn't a guarantee that one will appear.
 	private IEnumerator TryToAsteroid () {
 		for (;;) {
+			//Debug.Log("asteroid away?");
 			switch (state) {
 				case STATE_MENU:
-					// check the RNG
-					// if should, CreateAsteroid(false);
+					if (Random.value > 0.5f) { // arbitrary for now
+						CreateAsteroid(false);
+					}
 					break;
 				case STATE_RUNNING:
-					// check the RNG
-					// if should, CreateAsteroid(true);
+					//CreateAsteroid(true);
 					break;
 				case STATE_PAUSED:
 					// never create asteroids here
 					break;
 			}
 			// we're an infinite loop, but we don't lock the game.
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(10f);
 		}
 	}
 	
 	// Creates an asteroid object, including locating it
 	// and telling it if it can wrap around the screen.
 	private void CreateAsteroid (bool canWrap) {
-		GameObject asteroidDupe = Instantiate(asteroidPrefab);
-		Destroy(asteroidDupe); // obvious placeholder is obvious
+		Debug.Log("creating asteroid");
+		GameObject asteroidDupe = Instantiate(asteroidPrefab, onCircle(Random.value*2*Mathf.PI,10), Random.rotation) as GameObject;
+		asteroidDupe.GetComponent<Wrappable>().canWrap = canWrap;
+		asteroidDupe.GetComponent<Rigidbody2D>().AddForce(onCircle(Random.value*2*Mathf.PI,0.1f));
 	}
 	
-	private void DrawMenuMain () {
-		
-	}
-	
-	private void DrawMenuPause () {
-		
+	private Vector3 onCircle (float angle, float radius) {
+		return new Vector3(radius*Mathf.Cos(angle),radius*Mathf.Sin(angle),0);
 	}
 	
 	public int GetGameState () {
