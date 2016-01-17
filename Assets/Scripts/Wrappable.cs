@@ -5,16 +5,18 @@ public class Wrappable : MonoBehaviour {
 	private GameObject playerCam;
 	
 	public bool canWrap;
-	
-	public float widthBorder  = 20.0f;
-	public float heightBorder = 20.0f;
+	public float borderOffsetHeight = 4.0f;
+	public float borderOffsetWidth = 4.0f;
+	private float widthBorder  = 20.0f;
+	private float heightBorder = 20.0f;
 
 	// Use this for initialization
 	void Start () {
 		canWrap = true;
 		playerCam = GameObject.FindGameObjectWithTag("MainCamera");
-		heightBorder = playerCam.GetComponent<Camera>().orthographicSize + 4;
-		widthBorder = heightBorder;
+        float camSize = playerCam.GetComponent<Camera>().orthographicSize;
+		heightBorder =  camSize + borderOffsetHeight;
+		widthBorder = camSize + borderOffsetWidth;
 	}
 	
 	// Update is called once per frame
