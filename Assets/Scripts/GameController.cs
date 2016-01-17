@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour {
 		Debug.Log("creating asteroid");
 		GameObject asteroidDupe = Instantiate(asteroidPrefab1, onCircle(Random.value*2*Mathf.PI,15), Random.rotation) as GameObject;
 		asteroidDupe.GetComponent<Wrappable>().canWrap = canWrap;
-		asteroidDupe.GetComponent<Rigidbody2D>().velocity = onCircle(Random.value*2*Mathf.PI,1f);
+		asteroidDupe.GetComponent<Rigidbody2D>().velocity = onCircle(Random.value*2*Mathf.PI,Random.value+1f);
 	}
 	
 	private Vector2 onCircle (float angle, float radius) {
