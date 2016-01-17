@@ -21,8 +21,11 @@ type PlayerController() =
     //member this.Start() = 
       //  this.transform.
     /// Handles the weapons
-    //member this.Update() = 
-      //  GameObject.
+    member this.Update() = 
+        if Input.GetButtonDown( "Fire1" ) then
+            Debug.Log( "Fire1" )
+        if Input.GetButtonDown( "Fire2" ) then
+            Debug.Log( "Fire2" )
      
     /// Handles the motion of the player controller.
     member this.FixedUpdate() =
