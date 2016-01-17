@@ -4,7 +4,7 @@ using System.Collections;
 public class Wrappable : MonoBehaviour {
 	private GameObject playerCam;
 	
-	public bool canWrap;
+	public bool canWrap = true;
 	public float borderOffsetHeight = 4.0f;
 	public float borderOffsetWidth = 4.0f;
 	private float widthBorder  = 20.0f;
@@ -12,7 +12,6 @@ public class Wrappable : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		canWrap = true;
 		playerCam = GameObject.FindGameObjectWithTag("MainCamera");
         float camSize = playerCam.GetComponent<Camera>().orthographicSize;
 		heightBorder =  camSize + borderOffsetHeight;
