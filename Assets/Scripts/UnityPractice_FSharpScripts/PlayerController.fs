@@ -1,17 +1,20 @@
 ﻿namespace UnityPractice_FSharpScripts
 open UnityEngine
 
+/// Script that moves the player around and fires the weapon.
 type PlayerController() = 
     inherit MonoBehaviour()
 
     [<SerializeField>]
-    let mutable turn_rate = 10.0f
+    let mutable turn_rate = 250.0f // how fast it turns
     [<SerializeField>]
-    let mutable thrust_rate = 10.0f
+    let mutable thrust_rate = 2.0f // how fast it accelerates
+
     [<SerializeField>]
-    let mutable stop_rate = 0.99f
+    [<Range(0.0f,1.0f)>] // creates a slider in the editor
+    let mutable stop_rate = 0.10f // lerp amount when decelerating
     [<SerializeField>]
-    let mutable max_speed = 10.0f
+    let mutable max_speed = 10.0f // 
 
     let mutable velocity = Vector3.zero
 
