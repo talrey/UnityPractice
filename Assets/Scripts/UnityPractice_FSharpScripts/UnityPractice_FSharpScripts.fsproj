@@ -56,6 +56,7 @@
     <Compile Include="BasicBullet.fs" />
     <Compile Include="FollowCamera.fs" />
     <Compile Include="PlayerController.fs" />
+    <Compile Include="LogsMessage.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
