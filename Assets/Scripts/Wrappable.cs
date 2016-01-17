@@ -14,7 +14,7 @@ public class Wrappable : MonoBehaviour {
 		canWrap = true;
 		playerCam = GameObject.FindGameObjectWithTag("MainCamera");
 		heightBorder = playerCam.GetComponent<Camera>().orthographicSize + 4;
-		widthBorder = heightBorder + 4;
+		widthBorder = heightBorder;
 	}
 	
 	// Update is called once per frame
