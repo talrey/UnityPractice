@@ -26,7 +26,7 @@ public class Wrappable : MonoBehaviour {
 		}
 		else if (x < -widthBorder) {
 			if (!canWrap) Destroy(gameObject);
-			else x = camera.transform.x + widthBorder;
+			else x = camera.transform.position.x + widthBorder;
 		}
 		if (y > camera.transform.position.y + heightBorder) {
 			if (!canWrap) Destroy(gameObject);
@@ -34,7 +34,7 @@ public class Wrappable : MonoBehaviour {
 		}
 		else if (y < -heightBorder) {
 			if (!canWrap) Destroy(gameObject);
-			else y = camera.transform.y + heightBorder;
+			else y = camera.transform.position.y + heightBorder;
 		}
 		transform.position = new Vector3(x,y,0f);
 	}
