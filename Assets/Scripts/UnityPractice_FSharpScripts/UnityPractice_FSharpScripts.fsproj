@@ -53,10 +53,11 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <None Include="Script.fsx" />
+    <Compile Include="LogsMessage.fs" />
     <Compile Include="BasicBullet.fs" />
     <Compile Include="FollowCamera.fs" />
+    <Compile Include="WeaponController.fs" />
     <Compile Include="PlayerController.fs" />
-    <Compile Include="LogsMessage.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
