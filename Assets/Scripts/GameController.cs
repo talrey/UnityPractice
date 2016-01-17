@@ -4,6 +4,8 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 	private int state;
 	
+	private int score;
+	
 	//private GameObject player;
 	private GameObject asteroidPrefab;
 	
@@ -14,60 +16,83 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		state = 0; // main menu state
+		score = 0;
 		//player = GameObject.Find("player object name");
 		asteroidPrefab = Resources.Load("Prefabs/Asteroid") as GameObject;
+		TryToAsteroid();
 	}
 	
 	// Update is called once per frame
+	/*
 	void Update () {
 		switch (state) {
 			case STATE_MENU:
-				// draw buttons
 				// spawn asteroids w/ no wrap-around
-				
-				// state switch conditions:
-				// Button(game_start) / state=RUNNING, show player
 				break;
 			case STATE_RUNNING:
 				// spawn asteroids w/ wrap-around
-				// draw score on screen
-				
-				// state switch conditions:
-				// Pause / state=PAUSED, disable movement
 				break;
 			case STATE_PAUSED:
-				// draw buttons
-				
-				// state switch conditions:
-				// Unpause / state=1, enable movement
-				// Quit / state=MENU, save score, hide player
 				break;
 		}
 	}
+	*/
 	
+	/* State:
+	Menu:
+		[start] / state=RUNNING
+		[quit]  / <exit application>
+	Running:
+		<pause> / state=PAUSED
+	Paused:
+		[resume]/ state=RUNNING
+		[quit]  / state=Menu
+	*/
 	void OnGUI () {
 		switch (state) {
 			case STATE_MENU:
+				if (GUI.Button(
+				new Rect(Screen.width/2-50,Screen.height/2,100,30),
+				"Start Game")) {
+					//Debug.Log("game started");
+					state = STATE_RUNNING;
+				}
+				else if (GUI.Button(
+				new Rect(Screen.width/2-50,Screen.height/2+30,100,30),
+				"Quit")) {
+					Debug.Log("game quit?");
+				}
 				break;
 			case STATE_RUNNING:
+				GUI.Label(new Rect(0,0,100,30), "Score: " + score);
 				break;
 			case STATE_PAUSED:
+				GUI.Label(new Rect(0,0,100,30), "Score: " + score);
+				if (GUI.Button(
+				new Rect(Screen.width/2-50,Screen.height/2,100,30),
+				"Resume")) {
+					Debug.Log("game resumed");
+					state = STATE_RUNNING;
+				}
+				else if (GUI.Button(
+				new Rect(Screen.width/2-50,Screen.height/2+30,100,30),
+				"Quit")) {
+					//Debug.Log("game quit");
+					state = STATE_MENU;
+					// save score
+				}
 				break;
 		}
 	}
 	
 	private void Pause () {
-		switch (state) {
-			case STATE_MENU: break; // do nothing
-			case STATE_RUNNING:
-				Time.timeScale = 0;
-				state = STATE_PAUSED;
-				break;
-			case STATE_PAUSED:
-				Time.timeScale = 1;
-				state = STATE_RUNNING;
-				break;
-		}
+		Time.timeScale = 0;
+		state = STATE_PAUSED;
+	}
+	
+	private void Resume () {
+		Time.timeScale = 1;
+		state = STATE_RUNNING;
 	}
 	
 	// Coroutine that tries to create an asteroid.
@@ -100,7 +125,19 @@ public class GameController : MonoBehaviour {
 		Destroy(asteroidDupe); // obvious placeholder is obvious
 	}
 	
+	private void DrawMenuMain () {
+		
+	}
+	
+	private void DrawMenuPause () {
+		
+	}
+	
 	public int GetGameState () {
 		return state;
+	}
+	
+	public void AddToScore (int value) {
+		score += value;
 	}
 }
