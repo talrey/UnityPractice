@@ -18,8 +18,12 @@ ExportedObj/
 *.booproj
 *.svd
 
+#Additional Visual Studio ignores
+*.dll.mdb
+*.pdb
 
 # Unity3D generated meta files
+*.meta
 *.pidb.meta
 
 # Unity3D Generated File On Crash Reports

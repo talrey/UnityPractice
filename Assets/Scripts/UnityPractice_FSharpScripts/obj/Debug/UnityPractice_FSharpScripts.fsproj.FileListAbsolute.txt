@@ -1,0 +1,4 @@
+G:\Users\SilverTabby\GameDev\Unity\UnityPractice\UnityPractice\Assets\Scripts\UnityPractice_FSharpScripts\obj\Debug\UnityPractice_FSharpScripts.dll
+G:\Users\SilverTabby\GameDev\Unity\UnityPractice\UnityPractice\Assets\Scripts\UnityPractice_FSharpScripts\obj\Debug\UnityPractice_FSharpScripts.pdb
+G:\Users\SilverTabby\GameDev\Unity\UnityPractice\UnityPractice\Assets\Scripts\UnityPractice_FSharpScripts.dll
+G:\Users\SilverTabby\GameDev\Unity\UnityPractice\UnityPractice\Assets\Scripts\UnityPractice_FSharpScripts.pdb
