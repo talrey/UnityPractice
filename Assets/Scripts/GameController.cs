@@ -7,7 +7,9 @@ public class GameController : MonoBehaviour {
 	private const int testSeed = 101;
 	
 	//private GameObject player;
-	public GameObject asteroidPrefab;
+	private GameObject asteroidPrefab1;
+	
+	public float asteroidTiming = 5f;
 	
 	public const int STATE_MENU = 0;
 	public const int STATE_RUNNING = 1;
@@ -18,7 +20,7 @@ public class GameController : MonoBehaviour {
 		state = 0; // main menu state
 		score = 0;
 		//player = GameObject.Find("player object name");
-		//asteroidPrefab = Resources.Load("Prefabs/ShoutBullet_Prefab") as GameObject;
+		asteroidPrefab1 = Resources.Load("Prefabs/AsteroidPrefab1") as GameObject;
 		StartCoroutine(TryToAsteroid());
 		
 		// will replace with something 'random' like time, later.
@@ -118,7 +120,7 @@ public class GameController : MonoBehaviour {
 					break;
 			}
 			// we're an infinite loop, but we don't lock the game.
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(asteroidTiming);
 		}
 	}
 	
@@ -126,13 +128,13 @@ public class GameController : MonoBehaviour {
 	// and telling it if it can wrap around the screen.
 	private void CreateAsteroid (bool canWrap) {
 		Debug.Log("creating asteroid");
-		GameObject asteroidDupe = Instantiate(asteroidPrefab, onCircle(Random.value*2*Mathf.PI,10), Random.rotation) as GameObject;
+		GameObject asteroidDupe = Instantiate(asteroidPrefab1, onCircle(Random.value*2*Mathf.PI,15), Random.rotation) as GameObject;
 		asteroidDupe.GetComponent<Wrappable>().canWrap = canWrap;
-		asteroidDupe.GetComponent<Rigidbody2D>().AddForce(onCircle(Random.value*2*Mathf.PI,0.1f));
+		asteroidDupe.GetComponent<Rigidbody2D>().velocity = onCircle(Random.value*2*Mathf.PI,1f);
 	}
 	
-	private Vector3 onCircle (float angle, float radius) {
-		return new Vector3(radius*Mathf.Cos(angle),radius*Mathf.Sin(angle),0);
+	private Vector2 onCircle (float angle, float radius) {
+		return new Vector2(radius*Mathf.Cos(angle),radius*Mathf.Sin(angle));
 	}
 	
 	public int GetGameState () {
