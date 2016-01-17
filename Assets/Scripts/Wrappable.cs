@@ -12,7 +12,7 @@ public class Wrappable : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		canWrap = true;
-		playerCam = GameObject.FindGameObjectWithTag("Main Camera");
+		playerCam = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 	
 	// Update is called once per frame
