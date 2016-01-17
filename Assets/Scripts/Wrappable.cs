@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Wrappable : MonoBehaviour {
-	private GameObject camera;
+	private GameObject playerCam;
 	
 	public bool canWrap;
 	
@@ -12,7 +12,7 @@ public class Wrappable : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		canWrap = true;
-		GameObject.FindGameObjectWithTag("Main Camera");
+		playerCam = GameObject.FindGameObjectWithTag("Main Camera");
 	}
 	
 	// Update is called once per frame
@@ -20,21 +20,21 @@ public class Wrappable : MonoBehaviour {
 		float x = transform.position.x;
 		float y = transform.position.y;
 		
-		if (x > camera.transform.position.x + widthBorder) {
+		if (x > playerCam.transform.position.x + widthBorder) {
 			if (!canWrap) Destroy(gameObject);
 			else x = -widthBorder;
 		}
 		else if (x < -widthBorder) {
 			if (!canWrap) Destroy(gameObject);
-			else x = camera.transform.position.x + widthBorder;
+			else x = playerCam.transform.position.x + widthBorder;
 		}
-		if (y > camera.transform.position.y + heightBorder) {
+		if (y > playerCam.transform.position.y + heightBorder) {
 			if (!canWrap) Destroy(gameObject);
 			else y = -heightBorder;
 		}
 		else if (y < -heightBorder) {
 			if (!canWrap) Destroy(gameObject);
-			else y = camera.transform.position.y + heightBorder;
+			else y = playerCam.transform.position.y + heightBorder;
 		}
 		transform.position = new Vector3(x,y,0f);
 	}
