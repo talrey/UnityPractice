@@ -26,20 +26,22 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	/*
 	void Update () {
 		switch (state) {
 			case STATE_MENU:
-				// spawn asteroids w/ no wrap-around
 				break;
 			case STATE_RUNNING:
-				// spawn asteroids w/ wrap-around
+				if (Input.GetButtonDown("Cancel")) {
+					Pause();
+				}
 				break;
 			case STATE_PAUSED:
+				if (Input.GetButtonDown("Cancel")) {
+					Resume();
+				}
 				break;
 		}
 	}
-	*/
 	
 	/* State:
 	Menu:
@@ -57,7 +59,7 @@ public class GameController : MonoBehaviour {
 				if (GUI.Button(
 				new Rect(Screen.width/2-50,Screen.height/2,100,30), "Start Game")) {
 					//Debug.Log("game started");
-					state = STATE_RUNNING;
+					Resume();
 				}
 				else if (GUI.Button(
 				new Rect(Screen.width/2-50,Screen.height/2+30,100,30), "Quit")) {
@@ -72,7 +74,7 @@ public class GameController : MonoBehaviour {
 				if (GUI.Button(
 				new Rect(Screen.width/2-50,Screen.height/2,100,30), "Resume")) {
 					Debug.Log("game resumed");
-					state = STATE_RUNNING;
+					Resume();
 				}
 				else if (GUI.Button(
 				new Rect(Screen.width/2-50,Screen.height/2+30,100,30), "Quit")) {
@@ -102,19 +104,21 @@ public class GameController : MonoBehaviour {
 			//Debug.Log("asteroid away?");
 			switch (state) {
 				case STATE_MENU:
-					if (Random.value > 0.5f) { // arbitrary for now
+					//if (Random.value > 0.5f) {
 						CreateAsteroid(false);
-					}
+					//}
 					break;
 				case STATE_RUNNING:
-					//CreateAsteroid(true);
+					//if (Random.value > 0.5f) { // change this later
+						CreateAsteroid(true);
+					//}
 					break;
 				case STATE_PAUSED:
 					// never create asteroids here
 					break;
 			}
 			// we're an infinite loop, but we don't lock the game.
-			yield return new WaitForSeconds(10f);
+			yield return new WaitForSeconds(0.1f);
 		}
 	}
 	
