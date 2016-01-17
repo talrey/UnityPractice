@@ -20,7 +20,7 @@ public class Wrappable : MonoBehaviour {
 		float x = transform.position.x;
 		float y = transform.position.y;
 		
-		if (x > camera.transform.x + widthBorder) {
+		if (x > camera.transform.position.x + widthBorder) {
 			if (!canWrap) Destroy(gameObject);
 			else x = -widthBorder;
 		}
@@ -28,7 +28,7 @@ public class Wrappable : MonoBehaviour {
 			if (!canWrap) Destroy(gameObject);
 			else x = camera.transform.x + widthBorder;
 		}
-		if (y > camera.transform.y + heightBorder) {
+		if (y > camera.transform.position.y + heightBorder) {
 			if (!canWrap) Destroy(gameObject);
 			else y = -heightBorder;
 		}
